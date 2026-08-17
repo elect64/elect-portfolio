@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELECT — Multifaceted Creative</title>
+  <meta name="description" content="Elect is a multifaceted creative working across visual storytelling, technology, design, and cybersecurity. One creative mind. Multiple disciplines.">
+  <meta name="keywords" content="Elect, Multifaceted Creative, Video Editing, Graphic Design, Web Development, Cybersecurity, Videography, Laptop Engineering, DECRYPT, EPIQ">
+  
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ELECT — Multifaceted Creative">
+  <meta property="og:description" content="Creative direction, visual storytelling, and technology — built from different disciplines, driven by one mind.">
+  <meta property="og:image" content="assets/branding/elect-og.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%2300FF66'>E</text></svg>">
+
+  <!-- Typography: Inter & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Film Grain / Cinematic Overlay -->
+  <div class="film-grain" aria-hidden="true"></div>
+
+  <!-- Custom Cursor (Desktop Only) -->
+  <div class="custom-cursor" id="custom-cursor" aria-hidden="true">
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+    <span class="cursor-label" id="cursor-label"></span>
+  </div>
+
+  <!-- Film Preloader -->
+  <div class="preloader" id="preloader" aria-label="Loading Experience">
+    <div class="preloader-content">
+      <div class="preloader-brand">ELECT</div>
+      <div class="preloader-sub">MULTIFACETED CREATIVE</div>
+      <div class="preloader-bar">
+        <div class="preloader-progress" id="preloader-progress"></div>
+      </div>
+      <div class="preloader-counter" id="preloader-counter">00%</div>
+    </div>
+  </div>
+
+  <!-- Sticky Navigation -->
+  <header class="c-header" id="site-header">
+    <div class="c-nav-container">
+      <a href="#hero" class="c-brand interactive" data-cursor="HOME">
+        <span class="brand-text">ELECT</span>
+        <span class="brand-dot"></span>
+      </a>
+
+      <nav class="c-nav-desktop" aria-label="Main Navigation">
+        <ul class="c-nav-list">
+          <li><a href="#selected-work" class="c-nav-link interactive" data-cursor="VIEW">WORK</a></li>
+          <li><a href="#about" class="c-nav-link interactive" data-cursor="READ">ABOUT</a></li>
+          <li><a href="#capabilities" class="c-nav-link interactive" data-cursor="EXPLORE">CAPABILITIES</a></li>
+          <li><a href="#decrypt" class="c-nav-link interactive" data-cursor="ECOSYSTEM">DECRYPT</a></li>
+          <li><a href="#epiq" class="c-nav-link interactive" data-cursor="BRAND">EPIQ™</a></li>
+          <li><a href="#contact" class="c-nav-link interactive" data-cursor="INITIATE">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <button class="c-nav-toggle interactive" id="nav-toggle" aria-label="Toggle Menu" aria-expanded="false">
+        <span class="toggle-line line-1"></span>
+        <span class="toggle-line line-2"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Fullscreen Navigation Overlay -->
+  <div class="c-mobile-menu" id="mobile-menu" aria-hidden="true">
+    <div class="mobile-menu-inner">
+      <ul class="mobile-nav-list">
+        <li><a href="#selected-work" class="mobile-nav-link">WORK</a></li>
+        <li><a href="#graphic-design" class="mobile-nav-link">GRAPHICS</a></li>
+        <li><a href="#video-editing" class="mobile-nav-link">VIDEO REEL</a></li>
+        <li><a href="#other-work" class="mobile-nav-link">TECH & HARDWARE</a></li>
+        <li><a href="#about" class="mobile-nav-link">ABOUT</a></li>
+        <li><a href="#capabilities" class="mobile-nav-link">CAPABILITIES</a></li>
+        <li><a href="#decrypt" class="mobile-nav-link">DECRYPT</a></li>
+        <li><a href="#epiq" class="mobile-nav-link">EPIQ™</a></li>
+        <li><a href="#contact" class="mobile-nav-link">CONTACT</a></li>
+      </ul>
+      <div class="mobile-menu-footer">
+        <p>ONE CREATIVE MIND. MULTIPLE DISCIPLINES.</p>
+        <div class="mobile-green-badge">ELECY HQ</div>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+
+    <!-- 01 — HERO SECTION -->
+    <section class="s-hero" id="hero">
+      <div class="o-container hero-container">
+        <div class="hero-status reveal-fade">
+          <span class="status-indicator"></span>
+          <span class="status-text">AVAILABLE </span>
+        </div>
+
+        <div class="hero-title-wrapper">
+          <h1 class="hero-title reveal-text">ELECT</h1>
+          <p class="hero-subtitle reveal-up">MULTIFACETED CREATIVE</p>
+        </div>
+
+        <div class="hero-manifesto-grid">
+          <div class="hero-lead-col reveal-up">
+            <p class="hero-lead-text">
+                Elect is a multidisciplinary creative whose work spans video editing, graphic design, live streaming production, web development, cybersecurity, and laptop repair.
+            </p>
+          </div>
+          <div class="hero-meta-col reveal-up">
+            <div class="hero-tags">
+              <span>DESIGN</span>
+              <span>•</span>
+              <span>VIDEO</span>
+              <span>•</span>
+              <span>STREAM</span>
+              <span>•</span>
+              <span>PRODUCTION</span>
+            </div>
+            <a href="#selected-work" class="c-btn-hero interactive" data-cursor="EXPLORE">
+              <span>EXPLORE ARCHIVE</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1V15M8 15L1 8M8 15L15 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-scroll-prompt" aria-hidden="true">
+        <span class="scroll-label">SCROLL</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- 02 — INTRODUCTION SECTION -->
+    <section class="s-intro" id="intro">
+      <div class="o-container">
+        <div class="intro-grid">
+          <div class="intro-label-col reveal-fade">
+            <span class="c-section-num">02 / PHILOSOPHY</span>
+          </div>
+          <div class="intro-content-col">
+            <h2 class="intro-statement reveal-text">
+              Different disciplines.<br>One creative language.
+            </h2>
+            <div class="intro-body reveal-up">
+              <p>
+                Elect operates at the intersection of creative artistry and rigorous technical engineering. Rather than treating video editing, graphic design, web development, cybersecurity, and hardware as isolated fields, he synthesizes them into a cohesive ecosystem.
+              </p>
+              <p class="intro-highlight">
+                "CREATIVITY × TECHNOLOGY × STORYTELLING"
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 — SELECTED WORK SECTION -->
+    <section class="s-selected-work" id="selected-work">
+      <div class="o-container">
+        <div class="section-header reveal-fade">
+          <div>
+            <span class="c-section-num">03 / CURATED SHOWCASE</span>
+            <h2 class="c-section-title"> ELECT'S WORK</h2>
+          </div>
+          <p class="section-desc">Key projects highlighting multidisciplinary execution.</p>
+        </div>
+
+        <div class="projects-featured-list" id="featured-projects-container">
+          <!-- Dynamic Injected Featured Projects -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 — GRAPHIC DESIGN SECTION -->
+    <section class="s-graphic-design" id="graphic-design">
+      <div class="o-container">
+        <div class="section-header reveal-fade">
+          <div>
+            <span class="c-section-num">04 / VISUAL ARCHIVE</span>
+            <h2 class="c-section-title">GRAPHIC DESIGN</h2>
+          </div>
+          <div class="carousel-controls">
+            <button class="carousel-btn interactive" id="carousel-prev" aria-label="Previous Graphic" data-cursor="PREV">←</button>
+            <button class="carousel-btn interactive" id="carousel-next" aria-label="Next Graphic" data-cursor="NEXT">→</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Horizontal Exhibition Carousel Container -->
+      <div class="carousel-viewport" id="carousel-viewport">
+        <div class="carousel-track" id="graphic-carousel-track">
+          <!-- Dynamically generated from graphicProjects array in script.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 — VIDEO EDITING SECTION -->
+    <section class="s-video-editing" id="video-editing">
+      <div class="o-container">
+        <div class="section-header reveal-fade">
+          <div>
+            <span class="c-section-num">05 / MOTION & EDITING</span>
+            <h2 class="c-section-title">CINEMATIC VIDEO REEL</h2>
+          </div>
+          <p class="section-desc">High-impact visual storytelling & post-production.</p>
+        </div>
+
+        <div class="video-grid" id="video-projects-container">
+          <!-- Dynamic Injected Video Projects -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 — OTHER CREATIVE & TECHNICAL WORK -->
+    <section class="s-other-work" id="other-work">
+      <div class="o-container">
+        <div class="section-header reveal-fade">
+          <div>
+            <span class="c-section-num">06 / ENGINEERING & SECURITY</span>
+            <h2 class="c-section-title">TECHNICAL & CREATIVE CAPABILITIES</h2>
+          </div>
+          <p class="section-desc">Extending beyond visual design into systems, code, and hardware.</p>
+        </div>
+
+        <div class="asymmetric-grid" id="other-work-container">
+          <!-- Dynamic Injected Technical/Creative Cards -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 — DECRYPT SECTION -->
+    <section class="s-decrypt" id="decrypt">
+      <div class="decrypt-bg-glow" aria-hidden="true"></div>
+      <div class="o-container">
+        <div class="decrypt-card reveal-up">
+          <div class="decrypt-badge-bar">
+            <span class="c-tag-green">FOUNDER</span>
+            <span class="c-section-num">07 / Community</span>
+          </div>
+
+          <div class="decrypt-main-grid">
+            <div class="decrypt-brand-col">
+              <h2 class="decrypt-logo-text">DECRYPT</h2>
+              <p class="decrypt-tagline">KNOWLEDGE • CREATIVITY • INNOVATION</p>
+            </div>
+
+            <div class="decrypt-info-col">
+              <p class="decrypt-description">
+                DECRYPT is a community and movement centered around technology, cybersecurity, creativity, knowledge, and open innovation. It bridges technical security concepts with creative digital execution, empowering minds to build and defend the future.
+              </p>
+
+              <div class="decrypt-stats-row">
+                <div class="d-stat">
+                  <span class="d-stat-val">KNOWLEDGE</span>
+                  <span class="d-stat-lbl">Research & Awareness</span>
+                </div>
+                <div class="d-stat">
+                  <span class="d-stat-val">CREATIVITY</span>
+                  <span class="d-stat-lbl">Digital Innovation</span>
+                </div>
+                <div class="d-stat">
+                  <span class="d-stat-val">COMMUNITY</span>
+                  <span class="d-stat-lbl">Knowledge Transfer</span>
+                </div>
+              </div>
+
+              <div class="decrypt-cta-row">
+                <a href="Decrypt/index.html" class="c-btn-green interactive" data-cursor="JOIN">
+                  <span>ENGAGE WITH DECRYPT</span>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 13L13 1M13 1H3M13 1V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 — EPIQ™ SECTION -->
+    <section class="s-epiq" id="epiq">
+      <div class="o-container">
+        <div class="epiq-wrapper reveal-up">
+          <div class="epiq-header">
+            <div class="epiq-title-group">
+              <span class="c-section-num">08 / BRAND ENTITY</span>
+              <h2 class="epiq-brand-title">EPIQ<span class="epiq-mark">™</span></h2>
+            </div>
+            <p class="epiq-subtitle">DESIGN-FOCUSED CREATIVE BRAND</p>
+          </div>
+
+          <div class="epiq-content-grid">
+            <div class="epiq-text-col">
+              <p>
+                EPIQ™ represents the specialized design identity under Elect's umbrella. Focused on high-end visual brand systems, architectural graphic direction, and premium aesthetic products that stand out with cinematic elegance.
+              </p>
+              <div class="epiq-features">
+                <div class="epiq-feat-item">
+                  <span class="feat-dot"></span>
+                  <span>Visual Identity Systems</span>
+                </div>
+                <div class="epiq-feat-item">
+                  <span class="feat-dot"></span>
+                  <span>Editorial Media Design</span>
+                </div>
+                <div class="epiq-feat-item">
+                  <span class="feat-dot"></span>
+                  <span>Digital Artifact Crafting</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="epiq-visual-col">
+              <a href="https://www.instagram.com/epiq_hq?igsh=MXVkcjVjNmNsYmV3cQ==" class="epiq-placeholder-card interactive" data-cursor="EPIQ">
+                <div class="epiq-card-inner">
+                  <span class="epiq-card-mark">EPIQ™</span>
+                  <span class="epiq-card-label">DESIGN HOUSE</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 — ABOUT ELECT SECTION -->
+    <section class="s-about" id="about">
+      <div class="o-container">
+        <div class="section-header reveal-fade">
+          <div>
+            <span class="c-section-num">09 / BACKGROUND</span>
+            <h2 class="c-section-title">ABOUT ELECT</h2>
+          </div>
+          <p class="section-desc">The narrative behind the multidisciplinary approach.</p>
+        </div>
+
+        <div class="about-grid">
+          <!-- Portrait Composition -->
+          <div class="about-portrait-col reveal-up">
+            <div class="portrait-frame interactive" data-cursor="ELECT">
+              <img src="assets/profile/elect.jpeg" alt="Elect — Multidisciplinary Creative & Technologist" loading="lazy" onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'800\' viewBox=\'0 0 600 800\'><rect width=\'100%\' height=\'100%\' fill=\'%23080808\'/><text x=\'50%\' y=\'50%\' fill=\'%2300FF66\' font-family=\'sans-serif\' font-size=\'24\' text-anchor=\'middle\'>ELECT PORTRAIT</text></svg>';">
+              <div class="portrait-overlay"></div>
+              <div class="portrait-badge">PORT HARCOURT / NIGERIA</div>
+            </div>
+          </div>
+
+          <!-- Editorial Biography -->
+          <div class="about-bio-col reveal-up">
+            <h3 class="about-statement">
+              Combining technical rigor with visual creativity to solve complex problems from both sides of the spectrum.
+            </h3>
+
+            <div class="about-narrative about-narrative-collapsible" id="about-narrative">
+              <div class="about-brief">
+                <p>
+                  I've never been very good at staying in one box.
+
+                  My curiosity about technology and my refusal to settle for average have always pushed me toward finding better ways to solve problems. What started as an inborn interest evolved into a multidisciplinary journey through video editing, live production, hardware engineering, web development, graphic design and cybersecurity.
+
+                  Today, I work at the intersection of creativity, technology and storytelling.
+
+                  I've edited content published across the internet that has collectively generated 5M+ views, created 100+ graphic design projects, developed digital experiences, worked as a videographer and built practical experience in computer hardware and cybersecurity. I've also worked with brands including Syndicate Wears, The Macedonia Call and Favours Estate.
+                </p>
+              </div>
+
+              <div class="about-more" id="about-more">
+                <p>
+                  But the work isn't just about the skills.
+
+                  Creativity is my calling.
+
+                  I believe creativity is God's given solution to man's constant inefficiency in trying to make the world a better place. Whether I'm editing a film, designing a brand, building a website or solving a technical problem, my goal is the same:
+
+                  Make it better. Make it matter. Make people say wow.
+                </p>
+                <p>
+                  BUILDING WITH PEOPLE
+
+                  My journey has also been shaped by leadership.
+
+                  I've served as Director of Software at NACOS UNIPORT, where I contributed to technology initiatives and student development; organized the NACOS Creators Summit; led a 10-day Tech Digest campaign; and spoke to 100-level Computing students about building intentional careers in technology.
+
+                  As a Content Manager at Student Shop Nigeria, I created 250+ pieces of content, helping expand the brand's visibility and convert attention into returning customers.
+
+                  At WCCCF UniPort, I've worked across graphic design, video editing and livestream management as a Media Operator.
+
+                  I also founded DECRYPT, a movement built around young technology enthusiasts, with its flagship annual conference beginning with DECRYPT 1.0 - The Code Behind Creativity.
+
+                  And I'm still building.
+
+                  My ambition stretches from creating world-class digital experiences to eventually telling stories on the scale of Hollywood blockbusters.
+
+                  The disciplines may keep changing.
+
+                  The mission doesn't:
+
+                  Keep learning. Keep creating. Keep building. Never settle for average.
+                </p>
+              </div>
+
+              <button class="about-read-more" type="button" aria-expanded="false" aria-controls="about-more">
+                Read more
+              </button>
+            </div>
+
+            <style>
+              .about-narrative-collapsible {
+                position: relative;
+              }
+
+              .about-more {
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transition: max-height 0.45s ease, opacity 0.3s ease, margin 0.3s ease;
+              }
+
+              .about-more.is-open {
+                max-height: 1200px;
+                opacity: 1;
+                margin-top: 1rem;
+              }
+
+              .about-read-more {
+                background: transparent;
+                border: 1px solid rgba(0, 255, 102, 0.5);
+                color: #00ff66;
+                padding: 0.7rem 1rem;
+                margin-top: 1rem;
+                font-size: 0.72rem;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                cursor: pointer;
+                transition: all 0.25s ease;
+              }
+
+              .about-read-more:hover {
+                background: rgba(0, 255, 102, 0.08);
+                border-color: #00ff66;
+              }
+            </style>
+
+            <script>
+              (function() {
+                const toggleButton = document.querySelector('.about-read-more');
+                const extraContent = document.getElementById('about-more');
+
+                if (toggleButton && extraContent) {
+                  toggleButton.addEventListener('click', function() {
+                    const expanded = this.getAttribute('aria-expanded') === 'true';
+                    this.setAttribute('aria-expanded', String(!expanded));
+                    extraContent.classList.toggle('is-open', !expanded);
+                    this.textContent = expanded ? 'Read more' : 'Read less';
+                  });
+                }
+              })();
+            </script>
+
+            <!-- Credentials / Stats Grid -->
+            <div class="about-stats-grid" id="about-stats-container">
+              <!-- Dynamically populated from script.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 — CAPABILITIES SECTION -->
+    <section class="s-capabilities" id="capabilities">
+      <div class="o-container">
+        <div class="section-header reveal-fade">
+          <div>
+            <span class="c-section-num">10 / CORE DISCIPLINES</span>
+            <h2 class="c-section-title">CAPABILITIES</h2>
+          </div>
+          <p class="section-desc">Hover over any discipline to inspect specialized scope.</p>
+        </div>
+
+        <div class="capabilities-list" id="capabilities-container">
+          <!-- Dynamically populated from script.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 — CONTACT SECTION -->
+    <section class="s-contact" id="contact">
+      <div class="o-container">
+        <div class="contact-wrapper">
+          <div class="contact-header reveal-fade">
+            <span class="c-section-num">11 / INITIATE</span>
+            <span class="c-tag-green">OPEN FOR COLLABORATION</span>
+          </div>
+
+          <h2 class="contact-hero-title reveal-text">
+            LET'S BUILD<br>
+            <span class="text-green">SOMETHING</span><br>
+            EXQUISITE.
+          </h2>
+
+          <div class="contact-grid">
+            <div class="contact-direct-col reveal-up">
+              <p class="contact-lead">
+                Have a project, campaign, platform, or creative vision that demands precision and multidisciplinary execution? Get in touch directly.
+              </p>
+
+              <div class="contact-email-box">
+                <span class="box-label">DIRECT EMAIL</span>
+                <a href="mailto:okezieelect4@gmail.com" class="email-link interactive" id="contact-email-btn" data-cursor="COPY">MY INBOX</a>
+                <span class="email-copy-toast" id="email-toast">COPIED TO CLIPBOARD</span>
+              </div>
+            </div>
+
+            <div class="contact-links-col reveal-up">
+              <span class="box-label">DIGITAL CHANNELS</span>
+              <ul class="contact-social-list" id="contact-socials-container">
+                <!-- Dynamically populated from script.js -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 12 — FOOTER -->
+  <footer class="s-footer">
+    <div class="o-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-logo">ELECT</span>
+          <span class="footer-sub">MULTIFACETED CREATIVE</span>
+        </div>
+        <div class="footer-quote">
+          "ONE CREATIVE MIND. MULTIPLE DISCIPLINES."
+        </div>
+      </div>
+
+      <div class="footer-line"></div>
+
+      <div class="footer-bottom">
+        <div class="footer-copy">
+          © <span id="current-year">2026</span> ALL RIGHTS RESERVED.
+        </div>
+        <div class="footer-green-accent">
+          <span class="green-dot"></span> ELECT HQ
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Video Modal Player -->
+  <div class="video-modal" id="video-modal" aria-hidden="true" role="dialog">
+    <div class="video-modal-backdrop" id="modal-backdrop"></div>
+    <div class="video-modal-container">
+      <button class="video-modal-close interactive" id="modal-close" data-cursor="CLOSE" aria-label="Close Modal">✕</button>
+      <div class="video-modal-body" id="modal-body">
+        <!-- Embedded Iframe or Video Launcher content -->
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
