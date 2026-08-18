@@ -1267,23 +1267,37 @@ body.cursor-active .cursor-label {
   border-radius: 50%;
 }
 
+/* EPIQ Placeholder Card Container */
 .epiq-placeholder-card {
   aspect-ratio: 4 / 3;
-  background-color: var(--bg-black);
   border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+  
+  /* 1. Add background image with a 50% dark linear-gradient overlay */
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+    url("assets/graphics/epiq_banner.png"); /* Replace with your image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .epiq-placeholder-card:hover {
   border-color: var(--accent-green);
+  transform: scale(1.02);
 }
 
+/* 2. Ensure internal content sits above the background overlay */
 .epiq-card-inner {
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .epiq-card-mark {

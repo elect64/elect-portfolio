@@ -48,6 +48,17 @@ const PORTFOLIO_SETTINGS = {
       tools: ["Canva", "Lightroom", "OpenAI"],
       image: "assets/graphics/project-pee.jpg",
       link: "#"
+    },
+    {
+      id: "feat-02",
+      title: "Sampson Destiny Football Agency",
+      category: "Sports Management",
+      description: "Online contract management system for football players and agents.",
+      year: "2026",
+      role: "Web Designer & Developer",
+      tools: ["VS Code", "OpenAI"],
+      image: "assets/graphics/project-sampson.png",
+      link: "https://sampson-destiny-football-agency-dasvmo24b.vercel.app/"
     }
   ],
 
