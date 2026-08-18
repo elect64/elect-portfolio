@@ -35,7 +35,7 @@ const PORTFOLIO_SETTINGS = {
       year: "2025",
       role: "Web Designer & Front-End Developer",
       tools: ["HTML","CSS", "JAVASCRIPT", "Marzipiano", "Design System", "Vanilla JS", "Netlify"],
-      image: "assets/graphics/project-01.jpg",
+      image: "assets/graphics/project-01.png",
       link: "https://favors-estate.netlify.app/"
     },
     {
@@ -46,7 +46,7 @@ const PORTFOLIO_SETTINGS = {
       year: "2025",
       role: "Brand Designer",
       tools: ["Canva", "Lightroom", "OpenAI"],
-      image: "assets/graphics/project-02.jpg",
+      image: "assets/graphics/project-pee.jpg",
       link: "#"
     }
   ],
@@ -56,37 +56,43 @@ const PORTFOLIO_SETTINGS = {
     {
       title: "Student Shop Nigeria",
       category: "GADGET STORE ",
-      image: "assets/graphics/project-01.jg",
+      image: "assets/graphics/104.png",
       year: "2024 - 2026"
     },
     {
       title: "Syndicate Wears",
       category: "FASHION DESIGN",
-      image: "assets/graphics/project-02.jpg",
+      image: "assets/graphics/project-syndicate.png",
       year: "2026"
     },
     {
       title: "DECRYPT 1.0",
       category: "COMMUNITY BRANDING",
-      image: "assets/graphics/project-03.jpg",
+      image: "assets/graphics/project-decrypt_v1.png",
       year: "2025 - till date"
     },
     {
       title: "NewDay Feeds",
       category: "Poultry",
-      image: "assets/graphics/project-04.jpg",
+      image: "assets/graphics/project-ndf.png",
       year: "2026"
     },
     {
       title: "RIKTIGT RENT",
       category: "Deep cleaning services in Sweden",
-      image: "assets/graphics/project-05.jpg",
+      image: "assets/graphics/project-riktigt.png",
       year: "2025"
+    },
+    {
+      title: "C LEGACY OIL AND GAS",
+      category: "PMS Dealer",
+      image: "assets/graphics/project-cleg.png",
+      year: "2024 - till date"
     },
     {
       title: "WCCCF UNIPORT",
       category: "Campus Fellowship",
-      image: "assets/graphics/project-05.jpg",
+      image: "assets/graphics/project-wcf4k.png",
       year: "2024 - till date"
     }
   ],
@@ -94,25 +100,32 @@ const PORTFOLIO_SETTINGS = {
   // 05 — Video Editing Projects
   videoProjects: [
     {
-      title: "Student Shop Nigeria New Location Opening",
-      platform: "IG/FACEBOOK/TIKTOK/X",
+      title: "THE MACEDONIA CALL",
+      platform: "Short Film Trailer",
       description: "High-impact narrative motion design, multi-million view pacing, and color grading.",
-      thumbnail: "assets/videos/thumb-01.jpg",
-      videoUrl: "[ADD VIDEO URL]"
+      thumbnail: "assets/videos/thumb-mc.png",
+      videoUrl: "https://vimeo.com/reviews/d26169ad-1683-4367-8919-86b311dc0a7e/videos/1186659892"
     },
     {
-      title: "THE MACEDONIA CALL]",
-      platform: "SHORT FILM",
+      title: "Media BTS @ HTE2026",
+      platform: "Highlight reel",
       description: "Dynamic typographic rhythm, sound design sync, and visual flow.",
-      thumbnail: "assets/videos/thumb-02.jpg",
-      videoUrl: "[ADD VIDEO URL]"
+      thumbnail: "assets/videos/thumb-hte_media.png",
+      videoUrl: "https://vimeo.com/1219228373?share=copy&fl=sv&fe=ci"
     },
     {
-      title: "[HOLY MATRIMONY OF DORIS AND EMEKA OLUMATI]",
-      platform: "FACEBOOK",
+      title: "Student Shop Nigeria New Location Opening",
+      platform: "Promotional Video",
+      description: "Dynamic typographic rhythm, sound design sync, and visual flow.",
+      thumbnail: "assets/videos/thumb-ssnod.png",
+      videoUrl: "https://vimeo.com/1219231701?share=copy&fl=sv&fe=ci"
+    },
+    {
+      title: "HOLY MATRIMONY OF DORIS AND EMEKA OLUMATI",
+      platform: "Wedding Cinematic",
       description: "Story-first post-production with immersive pacing and color atmosphere.",
-      thumbnail: "assets/videos/thumb-03.jpg",
-      videoUrl: "[ADD VIDEO URL]"
+      thumbnail: "assets/videos/thumb-wed.png",
+      videoUrl: "https://vimeo.com/1219231982?fl=tl&fe=ec"
     }
   ],
 
@@ -171,8 +184,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initPreloader();
   initCustomCursor();
   initNavigation();
-  initScrollObservers();
-  renderDynamicContent();
+  
+  // 1. Render the content FIRST
+  renderDynamicContent(); 
+  
+  // 2. Initialize observers AFTER the content is in the DOM
+  initScrollObservers(); 
+  
   initCarousel();
   initContactCopy();
   initVideoModal();

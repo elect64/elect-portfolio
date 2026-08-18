@@ -2605,7 +2605,7 @@ body.cursor-active .cursor-label {
 }
 
 .graphic-card {
-  min-width: clamp(280px, 30vw, 420px);
+  width: clamp(280px, 30vw, 420px); /* Changed from min-width to width */
   flex-shrink: 0;
   background-color: var(--bg-surface);
   border: 1px solid var(--border-light);
