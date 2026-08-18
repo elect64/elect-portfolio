@@ -208,8 +208,94 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+/* ==========================================================================
+   TEXT UNSCRAMBLE EFFECT CLASS
+   ========================================================================== */
+class TextScramble {
+  constructor(el) {
+    this.el = el;
+    this.chars = '!<>-_\\/[]{}—=+*^?#________';
+    this.update = this.update.bind(this);
+  }
+
+  setText(newText) {
+    const oldText = this.el.innerText;
+    const length = Math.max(oldText.length, newText.length);
+    const promise = new Promise((resolve) => (this.resolve = resolve));
+    this.queue = [];
+
+    for (let i = 0; i < length; i++) {
+      const from = oldText[i] || '';
+      const to = newText[i] || '';
+      const start = Math.floor(Math.random() * 20);
+      const end = start + Math.floor(Math.random() * 20);
+      this.queue.push({ from, to, start, end, char: '' });
+    }
+
+    cancelAnimationFrame(this.frameRequest);
+    this.frame = 0;
+    this.update();
+    return promise;
+  }
+
+  update() {
+    let output = '';
+    let complete = 0;
+
+    for (let i = 0; i < this.queue.length; i++) {
+      let { from, to, start, end, char } = this.queue[i];
+
+      if (this.frame >= end) {
+        complete++;
+        output += to;
+      } else if (this.frame >= start) {
+        if (!char || Math.random() < 0.28) {
+          char = this.randomChar();
+          this.queue[i].char = char;
+        }
+        output += `<span class="scramble-glyph">${char}</span>`;
+      } else {
+        output += from;
+      }
+    }
+
+    this.el.innerHTML = output;
+
+    if (complete === this.queue.length) {
+      this.resolve();
+    } else {
+      this.frameRequest = requestAnimationFrame(this.update);
+      this.frame++;
+    }
+  }
+
+  randomChar() {
+    return this.chars[Math.floor(Math.random() * this.chars.length)];
+  }
+}
+
 /* --------------------------------------------------------------------------
-   01. PRELOADER ENGINE
+   HERO TITLE REVEAL CONTROLLER
+   -------------------------------------------------------------------------- */
+function triggerHeroScramble() {
+  const heroTitle = document.querySelector('.hero-title[data-scramble]');
+  const heroSub = document.querySelector('.hero-subtitle[data-scramble]');
+
+  if (heroTitle) {
+    const fxTitle = new TextScramble(heroTitle);
+    fxTitle.setText(heroTitle.getAttribute('data-scramble'));
+  }
+
+  if (heroSub) {
+    setTimeout(() => {
+      const fxSub = new TextScramble(heroSub);
+      fxSub.setText(heroSub.getAttribute('data-scramble'));
+    }, 300);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   UPDATED PRELOADER ENGINE
    -------------------------------------------------------------------------- */
 function initPreloader() {
   const preloader = document.getElementById('preloader');
@@ -226,6 +312,8 @@ function initPreloader() {
       clearInterval(interval);
       setTimeout(() => {
         preloader.classList.add('fade-out');
+        // Trigger the text unscramble animation right after preloader fades out
+        triggerHeroScramble();
       }, 300);
     }
     if (progress) progress.style.width = `${count}%`;

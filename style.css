@@ -180,6 +180,14 @@ ul {
   letter-spacing: 0.1em;
 }
 
+/* Unscramble Animation Character Glow */
+.scramble-glyph {
+  color: var(--accent-green);
+  opacity: 0.85;
+  font-weight: 400;
+  display: inline-block;
+}
+
 /* Custom Cursor */
 .custom-cursor {
   position: fixed;
