@@ -104,7 +104,7 @@ const PORTFOLIO_SETTINGS = {
       platform: "Short Film Trailer",
       description: "High-impact narrative motion design, multi-million view pacing, and color grading.",
       thumbnail: "assets/videos/thumb-mc.png",
-      videoUrl: "https://vimeo.com/reviews/d26169ad-1683-4367-8919-86b311dc0a7e/videos/1186659892"
+      videoUrl: "https://vimeo.com/1186659892?share=copy&fl=sv&fe=ci"
     },
     {
       title: "Media BTS @ HTE2026",
