@@ -290,7 +290,7 @@ function triggerHeroScramble() {
     setTimeout(() => {
       const fxSub = new TextScramble(heroSub);
       fxSub.setText(heroSub.getAttribute('data-scramble'));
-    }, 300);
+    }, 400);
   }
 }
 

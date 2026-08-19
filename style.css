@@ -568,6 +568,8 @@ body.cursor-active .cursor-label {
 
 .hero-title-wrapper {
   margin-bottom: 40px;
+  position: relative;
+  width: 100%;
 }
 
 .hero-title {
@@ -674,6 +676,53 @@ body.cursor-active .cursor-label {
   width: 40px;
   height: 1px;
   background-color: var(--text-white);
+}
+
+/* Subtle Hero Floating Banner Overlay */
+/* .hero-title-wrapper {
+  position: relative;
+  width: 100%;
+} */
+
+.hero-banner-media {
+  position: absolute;
+  top: -10%;
+  left: -2%;
+  width: 104%;
+  height: 120%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  opacity: 0.15; /* Low opacity for subtle blending */
+  animation: heroSubtleFloat 7s ease-in-out infinite alternate;
+}
+
+.hero-media-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(40%) contrast(115%);
+}
+
+/* Keep text sharply layer-stacked above the media overlay */
+.hero-title,
+.hero-subtitle {
+  position: relative;
+  z-index: 1;
+}
+
+/* Floating Animation Loop */
+@keyframes heroSubtleFloat {
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02);
+  }
+  100% {
+    transform: translateY(5px) scale(1);
+  }
 }
 
 /* --------------------------------------------------------------------------
