@@ -1,408 +1,986 @@
-/* ==========================================================================
-   DECRYPT CONTENT SETTINGS
-   Place all editable content here.
-   ========================================================================== */
-const decryptConfig = {
-    contact: {
-        instagram: "[ADD INSTAGRAM URL]",
-        facebook: "https://www.facebook.com/share/19V4zN4ikG/",
-        whatsapp: "https://wa.link/llj78c",
-        linkedin: "https://www.linkedin.com/company/decrypt144/",
-        email: "[ADD EMAIL]"
-    },
-    cta: {
-        join: "[https://chat.whatsapp.com/Lu3FOJ4U4ZwF5dcnUwbVQL]",
-        attend: "[ADD ATTEND URL]",
-        partner: "https://chat.whatsapp.com/LPzVlXnTBMDDRx8bTcFmE0",
-        volunteer: "https://chat.whatsapp.com/LPzVlXnTBMDDRx8bTcFmE0"
-    },
-    ecosystem: [
-        { title: "COMMUNITY MEETUPS", desc: "Small rooms. Big conversations. People worth meeting." },
-        { title: "CONFERENCES", desc: "The flagship DECRYPT experience." },
-        { title: "BOOTCAMPS", desc: "Practical knowledge. Real skills." },
-        { title: "CREATIVE CHALLENGES", desc: "Build. Experiment. Create." },
-        { title: "PUBLICATIONS", desc: "Ideas worth sharing." }
-    ],
-    conferenceProgram: [
-        { day: "DAY 01", topic: "LEADERSHIP", desc: "" },
-        { day: "DAY 02", topic: "ENTREPRENEURSHIP", desc: "" },
-        { day: "DAY 03", topic: "GRAPHIC DESIGN", desc: "Creativity with Your Phone" },
-        { day: "DAY 04", topic: "FOREX", desc: "Forex Fundamentals: Trading Smart, Trading Profitably" },
-        { day: "DAY 05", topic: "ARTIFICIAL INTELLIGENCE", desc: "A Beginner's Guide to AI: Supercharging Creativity" },
-        { day: "DAY 06", topic: "VIDEO EDITING", desc: "Mastering Basic Video Editing Principles" },
-        { day: "DAY 07", topic: "CYBERSECURITY", desc: "Cybersecurity Decoded: Staying Safe in a Digital World" }
-    ],
-    speakers: [
-        { name: "Mr. Ezirim Kingdom", topic: "Cybersecurity", image: "assets/speakers/ezirim-kingdom.jpg" },
-        { name: "Mr. Emeka Okoro", topic: "Artificial Intelligence", image: "assets/speakers/emeka-okoro.jpg" },
-        { name: "Victoria Chisom", topic: "Leadership", image: "assets/speakers/victoria-chisom.jpg" }
-    ],
-    archiveImages: [
-        { src: "assets/archive/event-1.jpg", category: "EVENT", size: "large" },
-        { src: "assets/archive/speaker-1.jpg", category: "SPEAKERS", size: "normal" },
-        { src: "assets/archive/creative-1.jpg", category: "CREATIVE", size: "small" },
-        { src: "assets/archive/bts-1.jpg", category: "BEHIND THE SCENES", size: "normal" },
-        { src: "assets/archive/session-1.jpg", category: "SESSIONS", size: "large" }
-    ],
-    testimonials: [
-        { quote: "[ADD TESTIMONIAL]", name: "[ATTENDEE NAME]", role: "Participant, DECRYPT 1.0" },
-        { quote: "[ADD TESTIMONIAL]", name: "[SPEAKER NAME]", role: "Speaker, DECRYPT 1.0" }
-    ]
+const CONFIG = {
+    launchDate: "2026-08-24T00:00:00",
+    websiteUrl: "https://decrypt.pxxl.click",
+    instagram: "https://www.instagram.com/officialdecrypt_?igsh=dGdjZDdlODBmZTl2",
+    facebook: "https://www.facebook.com/share/19V4zN4ikG/",
+    whatsapp: "https://wa.link/llj78c",
+    linkedin: "https://www.linkedin.com/company/decrypt144/",
+    email: "teamdecryptinfo@gmail.com"
 };
 
+/* ============================================
+   STATE
+   ============================================ */
 
-/* ==========================================================================
-   INITIALIZATION & DOM ELEMENTS
-   ========================================================================== */
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // Set Current Year
-    document.getElementById('current-year').textContent = new Date().getFullYear();
+const state = {
+    isLoading: true,
+    prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    isTouch: window.matchMedia('(pointer: coarse)').matches,
+    launchTime: new Date(CONFIG.launchDate).getTime(),
+    countdownInterval: null,
+    animationId: null,
+    canvas: null,
+    ctx: null,
+    width: 0,
+    height: 0,
+    time: 0,
+    loopDuration: 30000, // 30 seconds
+    videoReady: false
+};
 
-    // Render Content from Config
-    renderContent();
-    
-    // Initialize Systems
-    initLoader();
-    initCustomCursor();
-    initScrollAnimations();
-    initMobileMenu();
-    initArchiveCarousel();
-    initArchiveViewer();
-});
+/* ============================================
+   DOM REFERENCES
+   ============================================ */
 
+const dom = {
+    loader: document.getElementById('loader'),
+    page: document.getElementById('page'),
+    cursor: document.getElementById('cursor'),
+    video: document.getElementById('constructionVideo'),
+    canvas: document.getElementById('constructionCanvas'),
+    fallback: document.getElementById('reducedMotionFallback'),
+    countdown: document.getElementById('countdown'),
+    countdownGrid: document.getElementById('countdownGrid'),
+    liveState: document.getElementById('liveState'),
+    liveCta: document.getElementById('liveCta'),
+    cdDays: document.getElementById('cdDays'),
+    cdHours: document.getElementById('cdHours'),
+    cdMinutes: document.getElementById('cdMinutes'),
+    cdSeconds: document.getElementById('cdSeconds'),
+    footerYear: document.getElementById('footerYear'),
+    socialInstagram: document.getElementById('socialInstagram'),
+    socialFacebook: document.getElementById('socialFacebook'),
+    socialWhatsApp: document.getElementById('socialWhatsApp'),
+    socialLinkedIn: document.getElementById('socialLinkedIn'),
+    socialEmail: document.getElementById('socialEmail')
+};
 
-/* ==========================================================================
-   CONTENT RENDERING ENGINE
-   ========================================================================== */
-function renderContent() {
-    // 1. Ecosystem
-    const ecoContainer = document.getElementById('ecosystem-container');
-    if(ecoContainer) {
-        let ecoHTML = '';
-        decryptConfig.ecosystem.forEach((item, index) => {
-            const num = String(index + 1).padStart(2, '0');
-            ecoHTML += `
-                <div class="eco-item reveal-up" style="transition-delay: ${index * 0.1}s">
-                    <div class="eco-num">${num}</div>
-                    <div class="eco-title">${item.title}</div>
-                    <div class="eco-desc">${item.desc}</div>
-                </div>
-            `;
-        });
-        ecoContainer.innerHTML = ecoHTML;
-    }
+/* ============================================
+   LOADING
+   ============================================ */
 
-    // 2. Timeline
-    const timelineContainer = document.getElementById('timeline-container');
-    if(timelineContainer) {
-        let tlHTML = '';
-        decryptConfig.conferenceProgram.forEach((item, index) => {
-            tlHTML += `
-                <div class="timeline-item reveal-up" style="transition-delay: ${index * 0.05}s">
-                    <div class="tl-day">${item.day}</div>
-                    <div class="tl-topic">${item.topic}</div>
-                    <div class="tl-desc">${item.desc}</div>
-                </div>
-            `;
-        });
-        timelineContainer.innerHTML = tlHTML;
-    }
-
-    // 3. Speakers
-    const speakersContainer = document.getElementById('speakers-container');
-    if(speakersContainer) {
-        let spHTML = '';
-        decryptConfig.speakers.forEach((speaker, index) => {
-            spHTML += `
-                <div class="speaker-card reveal-up" style="transition-delay: ${index * 0.1}s">
-                    <div class="speaker-img-wrapper">
-                        <!-- Fallback background if image fails -->
-                        <img src="${speaker.image}" alt="${speaker.name}" class="speaker-img" onerror="this.style.display='none'">
-                    </div>
-                    <h4 class="speaker-name">${speaker.name}</h4>
-                    <p class="speaker-topic">${speaker.topic}</p>
-                </div>
-            `;
-        });
-        speakersContainer.innerHTML = spHTML;
-    }
-
-    // 4. Archive Carousel
-    const archiveContainer = document.getElementById('archive-carousel');
-    if(archiveContainer) {
-        let arHTML = '';
-        decryptConfig.archiveImages.forEach((img) => {
-            arHTML += `
-                <div class="archive-item ${img.size}" data-src="${img.src}">
-                    <img src="${img.src}" alt="${img.category}" onerror="this.style.display='none'">
-                    <div class="archive-meta">${img.category}</div>
-                </div>
-            `;
-        });
-        archiveContainer.innerHTML = arHTML;
-    }
-
-    // 5. Testimonials
-    const testContainer = document.getElementById('testimonials-container');
-    if(testContainer) {
-        let testHTML = '<div class="grid">';
-        decryptConfig.testimonials.forEach((test, index) => {
-            testHTML += `
-                <div class="testimonial-card reveal-up" style="transition-delay: ${index * 0.1}s">
-                    <p class="test-quote">"${test.quote}"</p>
-                    <p class="test-author">${test.name}</p>
-                    <p class="test-role">${test.role}</p>
-                </div>
-            `;
-        });
-        testHTML += '</div>';
-        testContainer.innerHTML = testHTML;
-    }
-
-    // 6. Contact & Social Links
-    const socialLinks = document.getElementById('social-links');
-    const contactLinks = document.getElementById('contact-links');
-    
-    if(socialLinks) {
-        socialLinks.innerHTML = `
-            <li><a href="https://www.instagram.com/officialdecrypt_?igsh=dGdjZDdlODBmZTl2" target="" rel="noopener">Instagram</a></li>
-            <li><a href="https://www.linkedin.com/company/decrypt144/" target="" rel="noopener">LinkedIn</a></li>
-            <li><a href="https://www.facebook.com/share/19V4zN4ikG/" target="" rel="noopener">Facebook</a></li>
-        `;
-    }
-    
-    if(contactLinks) {
-        contactLinks.innerHTML = `
-            <li><a href="mailto:teamdecryptinfo@gmail.com}">Email Us</a></li>
-            <li><a href="https://wa.link/llj78c" target="" rel="noopener">WhatsApp</a></li>
-        `;
-    }
-
-    // 7. CTAs
-    const ctaContainer = document.getElementById('cta-container');
-    if(ctaContainer) {
-        ctaContainer.innerHTML = `
-            <a href="${decryptConfig.cta.join}" class="btn-primary">JOIN DECRYPT</a>
-            <a href="${decryptConfig.cta.attend}" class="btn-secondary">ATTEND EVENTS</a>
-            <a href="${decryptConfig.cta.partner}">PARTNER WITH US</a>
-        `;
-    }
-}
-
-
-/* ==========================================================================
-   SYSTEMS & INTERACTIONS
-   ========================================================================== */
-
-// Loader Sequence
 function initLoader() {
-    const loader = document.getElementById('loader');
+    document.body.classList.add('loading');
+    
     setTimeout(() => {
-        loader.style.opacity = '0';
-        setTimeout(() => {
-            loader.style.display = 'none';
-        }, 800);
-    }, 1200);
+        dom.loader.classList.add('hidden');
+        document.body.classList.remove('loading');
+        dom.page.classList.add('ready');
+        state.isLoading = false;
+        initReveals();
+    }, 1100);
 }
 
-// Custom Cursor (Desktop Only)
-function initCustomCursor() {
-    // Check if touch device
-    if(window.matchMedia("(pointer: coarse)").matches) return;
+/* ============================================
+   CUSTOM CURSOR
+   ============================================ */
 
-    const cursor = document.getElementById('cursor');
-    const cursorText = cursor.querySelector('.cursor-text');
-    let mouseX = 0;
-    let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
-
+function initCursor() {
+    if (state.isTouch || state.prefersReducedMotion) return;
+    
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    let isActive = false;
+    let rafId = null;
+    
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
+        if (!isActive) {
+            isActive = true;
+            animateCursor();
+        }
     });
-
-    // Smooth follow loop
-    function renderCursor() {
-        // Linear interpolation for smoothness
-        cursorX += (mouseX - cursorX) * 0.2;
-        cursorY += (mouseY - cursorY) * 0.2;
-        cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
-        requestAnimationFrame(renderCursor);
+    
+    function animateCursor() {
+        if (!isActive) return;
+        cursorX += (mouseX - cursorX) * 0.18;
+        cursorY += (mouseY - cursorY) * 0.18;
+        dom.cursor.style.left = cursorX + 'px';
+        dom.cursor.style.top = cursorY + 'px';
+        rafId = requestAnimationFrame(animateCursor);
     }
-    requestAnimationFrame(renderCursor);
-
-    // Hover logic
-    const archiveItems = document.querySelectorAll('.archive-item');
-    archiveItems.forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            cursor.classList.add('hover-view');
-            cursorText.textContent = 'VIEW';
-        });
-        item.addEventListener('mouseleave', () => {
-            cursor.classList.remove('hover-view');
-            cursorText.textContent = '';
-        });
+    
+    const interactive = 'a, button, [data-cursor], .countdown-unit';
+    document.addEventListener('mouseover', (e) => {
+        if (e.target.closest(interactive)) {
+            dom.cursor.classList.add('expanded');
+        }
+    });
+    document.addEventListener('mouseout', (e) => {
+        if (e.target.closest(interactive)) {
+            dom.cursor.classList.remove('expanded');
+        }
+    });
+    
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            isActive = false;
+            if (rafId) cancelAnimationFrame(rafId);
+        }
     });
 }
 
-// Scroll Reveal Animations & Sticky Nav
-function initScrollAnimations() {
-    const reveals = document.querySelectorAll('.reveal-up, .reveal-text');
-    const navbar = document.getElementById('navbar');
+/* ============================================
+   REVEAL ANIMATIONS
+   ============================================ */
 
+function initReveals() {
+    if (state.prefersReducedMotion) {
+        document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('revealed'));
+        return;
+    }
+    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('active');
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+    }, { threshold: 0.15 });
+    
+    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+}
 
-    reveals.forEach(reveal => observer.observe(reveal));
+/* ============================================
+   COUNTDOWN
+   ============================================ */
 
-    // Nav Scroll
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+function updateCountdown() {
+    const now = Date.now();
+    const diff = state.launchTime - now;
+    
+    if (diff <= 0) {
+        showLiveState();
+        return;
+    }
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    dom.cdDays.textContent = String(days).padStart(2, '0');
+    dom.cdHours.textContent = String(hours).padStart(2, '0');
+    dom.cdMinutes.textContent = String(minutes).padStart(2, '0');
+    dom.cdSeconds.textContent = String(seconds).padStart(2, '0');
+}
+
+function showLiveState() {
+    dom.countdown.classList.add('hidden');
+    dom.liveState.classList.add('active');
+    dom.liveState.setAttribute('aria-hidden', 'false');
+    if (state.countdownInterval) clearInterval(state.countdownInterval);
+}
+
+function initCountdown() {
+    updateCountdown();
+    state.countdownInterval = setInterval(updateCountdown, 1000);
+}
+
+/* ============================================
+   SCENE / ANIMATION
+   ============================================ */
+
+function initScene() {
+    if (state.prefersReducedMotion) {
+        dom.fallback.classList.add('active');
+        dom.canvas.classList.add('hidden');
+        return;
+    }
+    
+    // Try video first
+    if (dom.video) {
+        dom.video.addEventListener('canplay', () => {
+            state.videoReady = true;
+            dom.video.classList.add('active');
+            dom.canvas.classList.add('hidden');
+        });
+        dom.video.addEventListener('error', () => {
+            startCanvasAnimation();
+        });
+        // Fallback to canvas if video doesn't load in 2s
+        setTimeout(() => {
+            if (!state.videoReady) startCanvasAnimation();
+        }, 2000);
+    } else {
+        startCanvasAnimation();
+    }
+}
+
+function startCanvasAnimation() {
+    if (!dom.canvas) return;
+    dom.canvas.classList.remove('hidden');
+    state.canvas = dom.canvas;
+    state.ctx = dom.canvas.getContext('2d');
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    animateConstruction();
+}
+
+function resizeCanvas() {
+    if (!state.canvas) return;
+    const wrap = document.getElementById('sceneWrap');
+    const rect = wrap.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    state.width = rect.width;
+    state.height = rect.height;
+    state.canvas.width = rect.width * dpr;
+    state.canvas.height = rect.height * dpr;
+    state.canvas.style.width = rect.width + 'px';
+    state.canvas.style.height = rect.height + 'px';
+    state.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+/* ============================================
+   CANVAS CONSTRUCTION SCENE
+   ============================================ */
+
+// Scene objects
+const stars = [];
+const particles = [];
+const bricks = [];
+
+function initStars(count) {
+    stars.length = 0;
+    for (let i = 0; i < count; i++) {
+        stars.push({
+            x: Math.random(),
+            y: Math.random(),
+            size: Math.random() * 1.5 + 0.3,
+            twinkle: Math.random() * Math.PI * 2,
+            speed: Math.random() * 0.02 + 0.005
+        });
+    }
+}
+
+function initParticles(count) {
+    particles.length = 0;
+    for (let i = 0; i < count; i++) {
+        particles.push({
+            x: Math.random(),
+            y: Math.random(),
+            vx: (Math.random() - 0.5) * 0.15,
+            vy: (Math.random() - 0.5) * 0.15,
+            size: Math.random() * 2 + 0.5,
+            opacity: Math.random() * 0.4 + 0.1
+        });
+    }
+}
+
+function initBricks() {
+    bricks.length = 0;
+    // Bricks that will be placed into the structure
+    const brickColors = ['#F2D16B', '#E5C520', '#D4A017', '#C49415'];
+    for (let i = 0; i < 18; i++) {
+        bricks.push({
+            id: i,
+            color: brickColors[i % brickColors.length],
+            placed: false,
+            placeTime: 3000 + i * 1200, // staggered placement
+            x: 0, y: 0, w: 0, h: 0,
+            targetX: 0, targetY: 0,
+            currentX: 0, currentY: 0,
+            carrier: null,
+            opacity: 0
+        });
+    }
+}
+
+// Character definitions
+const characters = [
+    {
+        id: 'carrier',
+        name: 'Carrier',
+        bodyColor: '#F2D16B',
+        hatColor: '#D4A017',
+        x: 0, y: 0,
+        phase: 0,
+        carrying: null,
+        walkOffset: 0,
+        baseY: 0.72,
+        baseX: 0.12,
+        targetX: 0.45,
+        state: 'enter', // enter, walk, place, return
+        stateTime: 0
+    },
+    {
+        id: 'inspector',
+        name: 'Inspector',
+        bodyColor: '#F2D16B',
+        hatColor: '#D4A017',
+        x: 0, y: 0,
+        phase: 1.5,
+        baseY: 0.22,
+        baseX: 0.75,
+        floatOffset: 0,
+        hasTablet: true,
+        state: 'float',
+        stateTime: 0
+    },
+    {
+        id: 'climber',
+        name: 'Climber',
+        bodyColor: '#F2D16B',
+        hatColor: '#D4A017',
+        x: 0, y: 0,
+        phase: 3,
+        baseY: 0.35,
+        baseX: 0.55,
+        hangAngle: 0,
+        state: 'hang',
+        stateTime: 0
+    },
+    {
+        id: 'struggler',
+        name: 'Struggler',
+        bodyColor: '#F2D16B',
+        hatColor: '#D4A017',
+        x: 0, y: 0,
+        phase: 4.5,
+        baseY: 0.65,
+        baseX: 0.82,
+        wobble: 0,
+        state: 'struggle',
+        stateTime: 0
+    },
+    {
+        id: 'operator',
+        name: 'Operator',
+        bodyColor: '#F2D16B',
+        hatColor: '#D4A017',
+        x: 0, y: 0,
+        phase: 6,
+        baseY: 0.78,
+        baseX: 0.3,
+        typing: 0,
+        state: 'type',
+        stateTime: 0
+    }
+];
+
+// Webpage structure
+const structure = {
+    x: 0.25, y: 0.15,
+    w: 0.5, h: 0.55,
+    sections: [
+        { x: 0.02, y: 0.02, w: 0.96, h: 0.12, filled: false, fillTime: 4000 },
+        { x: 0.02, y: 0.18, w: 0.25, h: 0.35, filled: false, fillTime: 7000 },
+        { x: 0.32, y: 0.18, w: 0.66, h: 0.16, filled: false, fillTime: 9000 },
+        { x: 0.32, y: 0.38, w: 0.66, h: 0.15, filled: false, fillTime: 11000 },
+        { x: 0.02, y: 0.58, w: 0.96, h: 0.12, filled: false, fillTime: 14000 },
+        { x: 0.32, y: 0.58, w: 0.3, h: 0.12, filled: false, fillTime: 16000 },
+    ]
+};
+
+function drawStarfield(ctx, w, h, t) {
+    ctx.fillStyle = '#0B0F1A';
+    ctx.fillRect(0, 0, w, h);
+    
+    // Deep space gradient
+    const grad = ctx.createRadialGradient(w * 0.5, h * 0.4, 0, w * 0.5, h * 0.5, w * 0.8);
+    grad.addColorStop(0, '#121826');
+    grad.addColorStop(1, '#0B0F1A');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+    
+    // Stars
+    stars.forEach(star => {
+        const twinkle = Math.sin(t * star.speed + star.twinkle) * 0.5 + 0.5;
+        const alpha = 0.3 + twinkle * 0.7;
+        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+        ctx.beginPath();
+        ctx.arc(star.x * w, star.y * h, star.size, 0, Math.PI * 2);
+        ctx.fill();
+    });
+    
+    // Distant nebula glow
+    ctx.fillStyle = 'rgba(2, 40, 4, 0.08)';
+    ctx.beginPath();
+    ctx.arc(w * 0.2, h * 0.3, w * 0.25, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.fillStyle = 'rgba(2, 40, 4, 0.05)';
+    ctx.beginPath();
+    ctx.arc(w * 0.8, h * 0.7, w * 0.2, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+function drawStructure(ctx, w, h, loopT) {
+    const sx = structure.x * w;
+    const sy = structure.y * h;
+    const sw = structure.w * w;
+    const sh = structure.h * h;
+    
+    // Outer frame
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(sx, sy, sw, sh);
+    
+    // Corner accents
+    const cornerSize = 12;
+    ctx.strokeStyle = 'rgba(2, 40, 4, 0.6)';
+    ctx.lineWidth = 2;
+    // Top-left
+    ctx.beginPath();
+    ctx.moveTo(sx, sy + cornerSize);
+    ctx.lineTo(sx, sy);
+    ctx.lineTo(sx + cornerSize, sy);
+    ctx.stroke();
+    // Top-right
+    ctx.beginPath();
+    ctx.moveTo(sx + sw - cornerSize, sy);
+    ctx.lineTo(sx + sw, sy);
+    ctx.lineTo(sx + sw, sy + cornerSize);
+    ctx.stroke();
+    // Bottom-left
+    ctx.beginPath();
+    ctx.moveTo(sx, sy + sh - cornerSize);
+    ctx.lineTo(sx, sy + sh);
+    ctx.lineTo(sx + cornerSize, sy + sh);
+    ctx.stroke();
+    // Bottom-right
+    ctx.beginPath();
+    ctx.moveTo(sx + sw - cornerSize, sy + sh);
+    ctx.lineTo(sx + sw, sy + sh);
+    ctx.lineTo(sx + sw, sy + sh - cornerSize);
+    ctx.stroke();
+    
+    // Grid lines
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+    ctx.lineWidth = 1;
+    for (let i = 1; i < 4; i++) {
+        const gy = sy + (sh / 4) * i;
+        ctx.beginPath();
+        ctx.moveTo(sx, gy);
+        ctx.lineTo(sx + sw, gy);
+        ctx.stroke();
+    }
+    for (let i = 1; i < 6; i++) {
+        const gx = sx + (sw / 6) * i;
+        ctx.beginPath();
+        ctx.moveTo(gx, sy);
+        ctx.lineTo(gx, sy + sh);
+        ctx.stroke();
+    }
+    
+    // Filling sections with bricks
+    structure.sections.forEach((sec, i) => {
+        const progress = Math.min(1, Math.max(0, (loopT - sec.fillTime) / 2000));
+        if (progress > 0) {
+            const bx = sx + sec.x * sw;
+            const by = sy + sec.y * sh;
+            const bw = sec.w * sw * progress;
+            const bh = sec.h * sh;
+            
+            ctx.fillStyle = `rgba(242, 209, 107, ${0.15 + progress * 0.25})`;
+            ctx.fillRect(bx, by, bw, bh);
+            
+            // Brick pattern
+            const brickH = bh / 3;
+            const brickW = bw / 4;
+            for (let row = 0; row < 3; row++) {
+                for (let col = 0; col < 4; col++) {
+                    const offset = row % 2 === 0 ? 0 : brickW / 2;
+                    const bxx = bx + col * brickW + offset;
+                    const byy = by + row * brickH;
+                    if (bxx < bx + bw) {
+                        ctx.strokeStyle = `rgba(242, 209, 107, ${0.2 * progress})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.strokeRect(bxx + 1, byy + 1, brickW - 2, brickH - 2);
+                    }
+                }
+            }
         }
-    }, { passive: true });
+    });
+    
+    // Floating interface elements
+    const floatT = loopT * 0.0005;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.lineWidth = 1;
+    
+    // Floating panel 1
+    const p1x = sx + sw * 1.15 + Math.sin(floatT) * 8;
+    const p1y = sy + sh * 0.2 + Math.cos(floatT * 0.7) * 6;
+    ctx.strokeRect(p1x, p1y, 50, 35);
+    ctx.fillStyle = 'rgba(2, 40, 4, 0.3)';
+    ctx.fillRect(p1x + 4, p1y + 4, 42, 8);
+    ctx.fillRect(p1x + 4, p1y + 16, 30, 4);
+    ctx.fillRect(p1x + 4, p1y + 24, 20, 4);
+    
+    // Floating panel 2
+    const p2x = sx - 70 + Math.cos(floatT * 0.8) * 6;
+    const p2y = sy + sh * 0.6 + Math.sin(floatT * 0.6) * 8;
+    ctx.strokeRect(p2x, p2y, 45, 55);
+    ctx.fillStyle = 'rgba(2, 40, 4, 0.25)';
+    ctx.fillRect(p2x + 4, p2y + 4, 37, 6);
+    ctx.fillRect(p2x + 4, p2y + 14, 25, 4);
+    ctx.fillRect(p2x + 4, p2y + 22, 30, 4);
+    ctx.fillRect(p2x + 4, p2y + 30, 20, 4);
+    ctx.fillRect(p2x + 4, p2y + 38, 28, 4);
 }
 
-// Mobile Menu
-function initMobileMenu() {
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const links = document.querySelectorAll('.mobile-links a');
+function drawCharacter(ctx, w, h, char, loopT) {
+    const cx = char.x * w;
+    const cy = char.y * h;
+    const scale = Math.min(w, h) * 0.0009;
+    
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(scale, scale);
+    
+    // Body (rounded rectangle)
+    ctx.fillStyle = char.bodyColor;
+    roundRect(ctx, -25, -30, 50, 55, 12);
+    ctx.fill();
+    
+    // Body highlight
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+    roundRect(ctx, -20, -25, 40, 20, 8);
+    ctx.fill();
+    
+    // Hard hat
+    ctx.fillStyle = char.hatColor;
+    roundRect(ctx, -28, -42, 56, 14, 4);
+    ctx.fill();
+    ctx.fillRect(-22, -46, 44, 6);
+    
+    // Goggles
+    ctx.fillStyle = '#1A1A1A';
+    roundRect(ctx, -20, -18, 40, 14, 4);
+    ctx.fill();
+    
+    // Eyes
+    const eyeGlow = Math.sin(loopT * 0.003 + char.phase) * 0.3 + 0.7;
+    ctx.fillStyle = `rgba(255, 255, 255, ${eyeGlow})`;
+    ctx.beginPath();
+    ctx.arc(-8, -11, 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(8, -11, 4, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Pupils
+    ctx.fillStyle = '#000';
+    ctx.beginPath();
+    ctx.arc(-7, -10, 2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(9, -10, 2, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Mouth (small smile)
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(0, 2, 6, 0.2, Math.PI - 0.2);
+    ctx.stroke();
+    
+    // Limbs based on character state
+    drawLimbs(ctx, char, loopT);
+    
+    ctx.restore();
+}
 
-    if(!menuBtn || !mobileMenu) return;
-
-    function toggleMenu() {
-        menuBtn.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
+function drawLimbs(ctx, char, loopT) {
+    ctx.strokeStyle = char.bodyColor;
+    ctx.lineWidth = 5;
+    ctx.lineCap = 'round';
+    
+    const t = loopT * 0.001;
+    
+    if (char.id === 'carrier') {
+        // Walking legs
+        const walk = Math.sin(t * 4 + char.phase) * 8;
+        ctx.beginPath();
+        ctx.moveTo(-12, 22);
+        ctx.lineTo(-15 + walk, 45);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(12, 22);
+        ctx.lineTo(15 - walk, 45);
+        ctx.stroke();
         
-        // Prevent body scroll when open
-        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        // Arms carrying brick
+        ctx.beginPath();
+        ctx.moveTo(-22, -5);
+        ctx.lineTo(-35, 5);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(22, -5);
+        ctx.lineTo(35, 5);
+        ctx.stroke();
+        
+        // Brick in hands
+        ctx.fillStyle = '#D4A017';
+        roundRect(ctx, -30, 0, 60, 18, 2);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(0,0,0,0.15)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(-28, 2, 56, 14);
+        
+    } else if (char.id === 'inspector') {
+        // Floating legs (dangling)
+        const dangle = Math.sin(t * 2 + char.phase) * 3;
+        ctx.beginPath();
+        ctx.moveTo(-10, 22);
+        ctx.lineTo(-12 + dangle, 38);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(10, 22);
+        ctx.lineTo(12 - dangle, 38);
+        ctx.stroke();
+        
+        // Arms holding tablet
+        ctx.beginPath();
+        ctx.moveTo(-20, -2);
+        ctx.lineTo(-5, 8);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(20, -2);
+        ctx.lineTo(5, 8);
+        ctx.stroke();
+        
+        // Tablet
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        roundRect(ctx, -18, 5, 36, 26, 3);
+        ctx.fill();
+        ctx.fillStyle = 'rgba(2, 40, 4, 0.8)';
+        roundRect(ctx, -14, 9, 28, 18, 2);
+        ctx.fill();
+        // Screen lines
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+        ctx.fillRect(-10, 12, 20, 2);
+        ctx.fillRect(-10, 17, 14, 2);
+        ctx.fillRect(-10, 22, 16, 2);
+        
+    } else if (char.id === 'climber') {
+        // Hanging from structure
+        ctx.beginPath();
+        ctx.moveTo(-18, -35);
+        ctx.lineTo(-22, -55);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(18, -35);
+        ctx.lineTo(22, -50);
+        ctx.stroke();
+        
+        // Body rotated slightly
+        ctx.rotate(0.15);
+        
+        // Legs kicking
+        const kick = Math.sin(t * 5 + char.phase) * 6;
+        ctx.beginPath();
+        ctx.moveTo(-10, 22);
+        ctx.lineTo(-18, 38 + kick);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(10, 22);
+        ctx.lineTo(18, 38 - kick);
+        ctx.stroke();
+        
+        // Hammer arm
+        const hammerSwing = Math.sin(t * 6 + char.phase) * 0.4;
+        ctx.save();
+        ctx.translate(20, 0);
+        ctx.rotate(hammerSwing);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(15, -10);
+        ctx.stroke();
+        // Hammer head
+        ctx.fillStyle = '#888';
+        ctx.fillRect(12, -16, 10, 8);
+        ctx.restore();
+        
+        // Other arm holding on
+        ctx.beginPath();
+        ctx.moveTo(-20, 0);
+        ctx.lineTo(-30, -15);
+        ctx.stroke();
+        
+    } else if (char.id === 'struggler') {
+        // Wobbly stance
+        const wobble = Math.sin(t * 8 + char.phase) * 3;
+        
+        // Legs (unsteady)
+        ctx.beginPath();
+        ctx.moveTo(-12, 22);
+        ctx.lineTo(-18 + wobble * 0.5, 42);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(12, 22);
+        ctx.lineTo(18 - wobble * 0.5, 42);
+        ctx.stroke();
+        
+        // Arms struggling with big brick
+        ctx.beginPath();
+        ctx.moveTo(-22, -5);
+        ctx.lineTo(-30, -20 + wobble);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(22, -5);
+        ctx.lineTo(30, -20 + wobble);
+        ctx.stroke();
+        
+        // Oversized brick wobbling above
+        ctx.save();
+        ctx.translate(0, -35 + wobble);
+        ctx.rotate(Math.sin(t * 6 + char.phase) * 0.08);
+        ctx.fillStyle = '#C49415';
+        roundRect(ctx, -35, -12, 70, 24, 3);
+        ctx.fill();
+        // Brick texture
+        ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, -12);
+        ctx.lineTo(0, 12);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(-18, 0);
+        ctx.lineTo(18, 0);
+        ctx.stroke();
+        ctx.restore();
+        
+        // Sweat drops
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.beginPath();
+        ctx.arc(18, -25, 2, 0, Math.PI * 2);
+        ctx.fill();
+        
+    } else if (char.id === 'operator') {
+        // Standing legs
+        ctx.beginPath();
+        ctx.moveTo(-12, 22);
+        ctx.lineTo(-14, 42);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(12, 22);
+        ctx.lineTo(14, 42);
+        ctx.stroke();
+        
+        // Typing arms
+        const type = Math.sin(t * 10 + char.phase) * 3;
+        ctx.beginPath();
+        ctx.moveTo(-20, -2);
+        ctx.lineTo(-10, 15 + type);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(20, -2);
+        ctx.lineTo(10, 15 - type);
+        ctx.stroke();
+        
+        // Floating interface panel
+        const panelFloat = Math.sin(t * 1.5 + char.phase) * 4;
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+        ctx.lineWidth = 1;
+        roundRect(ctx, -50, 20 + panelFloat, 100, 50, 4);
+        ctx.fill();
+        ctx.stroke();
+        
+        // Panel content
+        ctx.fillStyle = 'rgba(2, 40, 4, 0.5)';
+        ctx.fillRect(-44, 26 + panelFloat, 88, 6);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.fillRect(-44, 36 + panelFloat, 30, 3);
+        ctx.fillRect(-44, 42 + panelFloat, 50, 3);
+        ctx.fillRect(-44, 48 + panelFloat, 20, 3);
+        ctx.fillRect(-44, 54 + panelFloat, 40, 3);
+        
+        // Cursor blink
+        if (Math.sin(t * 4) > 0) {
+            ctx.fillStyle = 'rgba(242, 209, 107, 0.8)';
+            ctx.fillRect(8, 54 + panelFloat, 3, 3);
+        }
     }
+}
 
-    menuBtn.addEventListener('click', toggleMenu);
+function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+}
 
-    links.forEach(link => {
-        link.addEventListener('click', toggleMenu);
+function drawParticles(ctx, w, h) {
+    particles.forEach(p => {
+        p.x += p.vx / w;
+        p.y += p.vy / h;
+        if (p.x < 0) p.x = 1;
+        if (p.x > 1) p.x = 0;
+        if (p.y < 0) p.y = 1;
+        if (p.y > 1) p.y = 0;
+        
+        ctx.fillStyle = `rgba(242, 209, 107, ${p.opacity})`;
+        ctx.beginPath();
+        ctx.arc(p.x * w, p.y * h, p.size, 0, Math.PI * 2);
+        ctx.fill();
     });
 }
 
-// Archive Carousel Drag/Swipe logic
-function initArchiveCarousel() {
-    const slider = document.getElementById('archive-carousel');
-    const prevBtn = document.getElementById('prev-archive');
-    const nextBtn = document.getElementById('next-archive');
+function updateCharacters(loopT) {
+    const t = loopT / 1000; // seconds
+    const cycle = (loopT % state.loopDuration) / state.loopDuration;
     
-    if(!slider) return;
-
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    // Mouse drag events
-    slider.addEventListener('mousedown', (e) => {
-        isDown = true;
-        slider.style.cursor = 'grabbing';
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = slider.scrollLeft;
+    characters.forEach(char => {
+        // Reset positions based on cycle phase for seamless loop
+        const charCycle = (cycle + char.phase / 10) % 1;
+        
+        if (char.id === 'carrier') {
+            // Walk back and forth
+            const walkProgress = (Math.sin(t * 0.8 + char.phase) + 1) / 2;
+            char.x = char.baseX + (char.targetX - char.baseX) * walkProgress;
+            char.y = char.baseY + Math.sin(t * 3 + char.phase) * 0.01;
+            
+        } else if (char.id === 'inspector') {
+            // Float around
+            char.x = char.baseX + Math.sin(t * 0.5 + char.phase) * 0.06;
+            char.y = char.baseY + Math.cos(t * 0.4 + char.phase * 0.7) * 0.04;
+            
+        } else if (char.id === 'climber') {
+            // Hang and swing
+            char.x = char.baseX + Math.sin(t * 0.6 + char.phase) * 0.02;
+            char.y = char.baseY + Math.sin(t * 1.2 + char.phase) * 0.015;
+            
+        } else if (char.id === 'struggler') {
+            // Wobble in place
+            char.x = char.baseX + Math.sin(t * 2 + char.phase) * 0.008;
+            char.y = char.baseY;
+            
+        } else if (char.id === 'operator') {
+            // Type and look at panel
+            char.x = char.baseX + Math.sin(t * 0.3 + char.phase) * 0.01;
+            char.y = char.baseY;
+        }
     });
-    slider.addEventListener('mouseleave', () => {
-        isDown = false;
-        slider.style.cursor = 'grab';
-    });
-    slider.addEventListener('mouseup', () => {
-        isDown = false;
-        slider.style.cursor = 'grab';
-    });
-    slider.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 2; // Scroll-fast factor
-        slider.scrollLeft = scrollLeft - walk;
-    });
-
-    // Button controls
-    const scrollAmount = window.innerWidth * 0.4; // 40vw
-    
-    if(nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        });
-    }
-    if(prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
-    }
 }
 
-// Fullscreen Image Viewer
-function initArchiveViewer() {
-    const viewer = document.getElementById('image-viewer');
-    const viewerImg = document.getElementById('viewer-image');
-    const closeBtn = document.querySelector('.viewer-close');
-    const prevBtn = document.querySelector('.viewer-prev');
-    const nextBtn = document.querySelector('.viewer-next');
-    const currentSpan = document.getElementById('viewer-current');
-    const totalSpan = document.getElementById('viewer-total');
+function animateConstruction() {
+    if (!state.ctx || state.prefersReducedMotion) return;
     
-    if(!viewer || !viewerImg) return;
+    const now = performance.now();
+    state.time = now;
+    const loopT = now % state.loopDuration;
+    
+    const ctx = state.ctx;
+    const w = state.width;
+    const h = state.height;
+    
+    // Clear
+    ctx.clearRect(0, 0, w, h);
+    
+    // Background
+    drawStarfield(ctx, w, h, now);
+    
+    // Structure
+    drawStructure(ctx, w, h, loopT);
+    
+    // Update and draw characters
+    updateCharacters(loopT);
+    characters.forEach(char => drawCharacter(ctx, w, h, char, loopT));
+    
+    // Particles
+    drawParticles(ctx, w, h);
+    
+    // Ambient glow overlay
+    const glowPulse = Math.sin(now * 0.001) * 0.02 + 0.03;
+    ctx.fillStyle = `rgba(2, 40, 4, ${glowPulse})`;
+    ctx.fillRect(0, 0, w, h);
+    
+    state.animationId = requestAnimationFrame(animateConstruction);
+}
 
-    let currentIndex = 0;
-    const images = decryptConfig.archiveImages;
+/* ============================================
+   CONTENT INJECTION
+   ============================================ */
 
-    totalSpan.textContent = images.length;
-
-    // Open viewer
-    document.querySelectorAll('.archive-item').forEach((item, index) => {
-        item.addEventListener('click', () => {
-            // Prevent opening if dragged
-            currentIndex = index;
-            openViewer();
-        });
+function injectContent() {
+    // Footer year
+    if (dom.footerYear) dom.footerYear.textContent = new Date().getFullYear();
+    
+    // Live CTA URL
+    if (dom.liveCta) {
+        const url = CONFIG.websiteUrl;
+        if (url && !url.includes('[ADD')) {
+            dom.liveCta.href = url;
+        } else {
+            dom.liveCta.href = '#';
+            dom.liveCta.addEventListener('click', (e) => {
+                e.preventDefault();
+            });
+        }
+    }
+    
+    // Social links
+    const socialMap = {
+        socialInstagram: CONFIG.instagram,
+        socialFacebook: CONFIG.facebook,
+        socialWhatsApp: CONFIG.whatsapp,
+        socialLinkedIn: CONFIG.linkedin,
+        socialEmail: CONFIG.email
+    };
+    
+    Object.entries(socialMap).forEach(([id, url]) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        
+        if (url && !url.includes('[ADD')) {
+            if (id === 'socialEmail' && !url.startsWith('mailto:')) {
+                el.href = 'mailto:' + url;
+            } else {
+                el.href = url;
+            }
+            if (id !== 'socialEmail') {
+                el.target = '_blank';
+                el.rel = 'noopener noreferrer';
+            }
+        } else {
+            el.href = '#';
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+            });
+        }
     });
+}
 
-    function openViewer() {
-        viewerImg.src = images[currentIndex].src;
-        currentSpan.textContent = currentIndex + 1;
-        viewer.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+/* ============================================
+   INITIALIZATION
+   ============================================ */
 
-    function closeViewer() {
-        viewer.classList.remove('active');
-        document.body.style.overflow = '';
-        setTimeout(() => { viewerImg.src = ''; }, 400); // clear after fade
-    }
-
-    function showNext() {
-        currentIndex = (currentIndex + 1) % images.length;
-        openViewer();
-    }
-
-    function showPrev() {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-        openViewer();
-    }
-
-    closeBtn.addEventListener('click', closeViewer);
-    nextBtn.addEventListener('click', showNext);
-    prevBtn.addEventListener('click', showPrev);
-
-    // Keyboard controls
-    document.addEventListener('keydown', (e) => {
-        if(!viewer.classList.contains('active')) return;
-        if(e.key === 'Escape') closeViewer();
-        if(e.key === 'ArrowRight') showNext();
-        if(e.key === 'ArrowLeft') showPrev();
+function init() {
+    initStars(120);
+    initParticles(25);
+    initBricks();
+    initLoader();
+    initCursor();
+    initCountdown();
+    initScene();
+    injectContent();
+    
+    // Handle reduced motion changes
+    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
+        state.prefersReducedMotion = e.matches;
+        if (e.matches) {
+            if (state.animationId) cancelAnimationFrame(state.animationId);
+            dom.canvas.classList.add('hidden');
+            dom.video.classList.remove('active');
+            dom.fallback.classList.add('active');
+        }
     });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
 }
