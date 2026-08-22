@@ -59,6 +59,17 @@ const PORTFOLIO_SETTINGS = {
       tools: ["VS Code", "OpenAI"],
       image: "assets/graphics/project-sampson.png",
       link: "https://sampson-destiny-football-agency-dasvmo24b.vercel.app/"
+    },
+    {
+      id: "feat-02",
+      title: " Cyber Hub Tutor",
+      category: "Open Source Learning Platform",
+      description: "Learning platform for cybersecurity enthusiasts and students.",
+      year: "2026",
+      role: "Web Designer & Developer",
+      tools: ["VS Code", "OpenAI", "Claude"],
+      image: "assets/graphics/project-cyberhub.png",
+      link: "https://cyberhubtutor.netlify.app//"
     }
   ],
 
@@ -99,6 +110,12 @@ const PORTFOLIO_SETTINGS = {
       category: "PMS Dealer",
       image: "assets/graphics/project-cleg.png",
       year: "2024 - till date"
+    },
+    {
+      title: "DEAR FRESHER",
+      category: "Book Launch",
+      image: "assets/graphics/DFresher.png",
+      year: "2025"
     },
     {
       title: "WCCCF UNIPORT",
