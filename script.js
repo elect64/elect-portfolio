@@ -60,7 +60,7 @@ const PORTFOLIO_SETTINGS = {
       role: "Web Designer & Developer",
       tools: ["VS Code", "OpenAI"],
       image: "assets/graphics/project-sampson.png",
-      link: "https://sampson-destiny-football-agency-dasvmo24b.vercel.app/"
+      link: "https://https://sampson-destiny-football-agency.vercel.app/"
     },
     {
       id: "feat-02",
