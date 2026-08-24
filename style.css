@@ -879,6 +879,59 @@ body.cursor-active .cursor-label {
   color: var(--text-muted);
 }
 
+  /* --------------------------------------------------------------------------
+    BRAND LOGO MARQUEE (Infinite Loop)
+    -------------------------------------------------------------------------- */
+  .brand-marquee-wrapper {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0 80px 0; /* Adds spacing between the header and the first project */
+    display: flex;
+    background: transparent; /* No borders or box background */
+    
+    /* Optional: Adds a subtle fade effect on the left and right edges so logos don't clip harshly */
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  .brand-marquee-track {
+    display: flex;
+    width: max-content;
+    /* Adjust '30s' to make the scroll faster or slower */
+    animation: scrollMarquee 30s linear infinite;
+  }
+
+  .brand-marquee-group {
+    display: flex;
+    align-items: center;
+    gap: 80px; /* Space between each logo */
+    padding-right: 80px; /* Must equal the gap to keep the loop perfectly seamless */
+  }
+
+  .brand-marquee-group img {
+    height: 40px; /* Adjust this to scale your logos up or down */
+    width: auto;
+    opacity: 0.5; /* Forces the 50% opacity requested */
+    filter: grayscale(100%); /* Keeps them neutral so they don't clash with the neon green theme */
+    transition: opacity 0.3s ease, filter 0.3s ease;
+  }
+
+  /* Optional: Make the logos light up fully when a user hovers over them */
+  .brand-marquee-group img:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+  }
+
+  /* The Infinite Scroll Animation */
+  @keyframes scrollMarquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%); /* Moves exactly half the track, then instantly restarts */
+    }
+  }
+
 /* --------------------------------------------------------------------------
    09. SECTION 04 — GRAPHIC DESIGN (CAROUSEL)
    -------------------------------------------------------------------------- */

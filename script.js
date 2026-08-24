@@ -17,6 +17,8 @@ const PORTFOLIO_SETTINGS = {
     whatsapp: "[ADD WHATSAPP]",
   },
 
+
+  
   // Social Media Channels
   socials: [
     { name: "INSTAGRAM", url: "https://www.instagram.com/user_elect?igsh=Y2xiOXlieXIwOTFx", label: "@elect" },
