@@ -42,6 +42,53 @@
   --header-height: 80px;
 }
 
+  /* --------------------------------------------------------------------------
+    LIGHT THEME OVERRIDES
+    -------------------------------------------------------------------------- */
+  :root[data-theme="light"] {
+    /* Backgrounds shift to white/light grays */
+    --bg-black: #ffffff;
+    --bg-surface: #f7f7f7;
+    --bg-surface-elevated: #eeeeee;
+    --bg-surface-card: #e5e5e5;
+    
+    /* Text shifts to dark grays/blacks */
+    --text-white: #0a0a0a;
+    --text-muted: rgba(10, 10, 10, 0.65);
+    --text-dim: rgba(10, 10, 10, 0.45);
+    
+    /* Borders become dark but transparent */
+    --border-color: rgba(0, 0, 0, 0.12);
+    --border-light: rgba(0, 0, 0, 0.06);
+    
+    /* Accent Green can remain the same, or you can deepen it slightly for contrast */
+    --accent-green-glow: rgba(0, 255, 102, 0.25);
+  }
+
+  /* Make the film grain slightly more visible on light backgrounds */
+  :root[data-theme="light"] .film-grain {
+    opacity: 0.06;
+  }
+
+
+  /* Theme Toggle Button Reset */
+.theme-toggle-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+/* Default (Dark Mode): Show Sun (switch to light), Hide Moon */
+.icon-moon { display: none; }
+.icon-sun { display: inline-block; }
+
+/* Light Mode Active: Show Moon (switch to dark), Hide Sun */
+:root[data-theme="light"] .icon-sun { display: none; }
+:root[data-theme="light"] .icon-moon { display: inline-block; }
+
+
 /* --------------------------------------------------------------------------
    02. RESET & BASE STYLES
    -------------------------------------------------------------------------- */

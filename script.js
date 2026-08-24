@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPreloader();
   initCustomCursor();
   initNavigation();
-  
+  initThemeToggle();
   // 1. Render the content FIRST
   renderDynamicContent(); 
   
@@ -711,4 +711,39 @@ function initVideoModal() {
 
   modalClose?.addEventListener('click', closeModal);
   modalBackdrop?.addEventListener('click', closeModal);
+}
+
+
+/* --------------------------------------------------------------------------
+   THEME TOGGLE CONTROLLER
+   -------------------------------------------------------------------------- */
+function initThemeToggle() {
+  const toggleBtns = document.querySelectorAll('.theme-toggle-btn');
+  const htmlElement = document.documentElement;
+  
+  // 1. Check if the user already saved a theme preference
+  const savedTheme = localStorage.getItem('elect-theme');
+  
+  // 2. Apply it immediately on load if it exists
+  if (savedTheme === 'light') {
+    htmlElement.setAttribute('data-theme', 'light');
+  }
+
+  // 3. Add click events to both desktop and mobile buttons
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Check current active theme
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      
+      if (currentTheme === 'light') {
+        // Switch to Dark
+        htmlElement.removeAttribute('data-theme');
+        localStorage.setItem('elect-theme', 'dark');
+      } else {
+        // Switch to Light
+        htmlElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('elect-theme', 'light');
+      }
+    });
+  });
 }
