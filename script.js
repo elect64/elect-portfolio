@@ -124,7 +124,20 @@ const PORTFOLIO_SETTINGS = {
       category: "Campus Fellowship",
       image: "assets/graphics/project-wcf4k.png",
       year: "2024 - till date"
+    },
+    {
+      title: "Shalom Pastures",
+      category: "Poultry Farm",
+      image: "assets/graphics/project-shalom.png",
+      year: "2026 - till date"
+    },
+    {
+      title: "Charming & Rapturable",
+      category: "Growth Community",
+      image: "assets/graphics/project-charming.png",
+      year: "2024 - till date"
     }
+    
   ],
 
   // 05 — Video Editing Projects
