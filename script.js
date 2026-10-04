@@ -13,8 +13,8 @@ const PORTFOLIO_SETTINGS = {
 
   // Direct Contact Details
   contact: {
-    email: "[ADD EMAIL]",
-    whatsapp: "[ADD WHATSAPP]",
+    email: "mailto:okezieelect4@gmail.com",
+    whatsapp: "https://wa.link/p4y464",
   },
 
 
