@@ -173,7 +173,7 @@ const PORTFOLIO_SETTINGS = {
    {
       title: "Celebration of Life - Late. Engr. Surv. Joseph Johnson Okwu",
       platform: "Funeral Storytelling",
-      desription: "Story-first editing",
+      description: "Story-first editing",
       thumbnail: "assets/videos/thumb-fun.png",
       videoUrl: "https://vimeo.com/1232729772?share=copy&fl=sv&fe=ci"
      }
