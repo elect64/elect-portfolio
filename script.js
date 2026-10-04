@@ -169,7 +169,14 @@ const PORTFOLIO_SETTINGS = {
       description: "Story-first post-production with immersive pacing and color atmosphere.",
       thumbnail: "assets/videos/thumb-wed.png",
       videoUrl: "https://vimeo.com/1219231982?fl=tl&fe=ec"
-    }
+    },
+   {
+      title: "Celebration of Life - Late. Engr. Surv. Joseph Johnson Okwu",
+      platform: "Funeral Storytelling",
+      desription: "Story-first editing",
+      thumbnail: "assets/videos/thumb-fun.png",
+      videoUrl: "https://vimeo.com/1232729772?share=copy&fl=sv&fe=ci"
+     }
   ],
 
   // 06 — Other Technical & Creative Work
